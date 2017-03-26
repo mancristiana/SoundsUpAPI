@@ -13,6 +13,7 @@ modules.xml
 ### Java ###
 # Compiled class file
 *.class
+classes/
 
 # Log file
 *.log
