@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>dk.kea.soundsup</groupId>
-    <artifactId>SoundsUpRestApi</artifactId>
+    <artifactId>SoundsUpAPI</artifactId>
     <version>1.0</version>
 
     <dependencies>
