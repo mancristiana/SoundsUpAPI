@@ -4,9 +4,12 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.LowLevelHttpRequest;
+import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.JsonGenerator;
 import com.google.api.client.json.JsonParser;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import dk.kea.soundsup.model.GoogleToken;
 import dk.kea.soundsup.model.User;
 
 import javax.servlet.http.HttpServletResponse;
@@ -28,49 +31,11 @@ import java.util.List;
 @Path("/users")
 public class UserService
 {
-    HttpTransport transport = new HttpTransport()
-    {
-        @Override
-        protected LowLevelHttpRequest buildRequest(String s, String s1) throws IOException
-        {
-            return null;
-        }
-    };
+    HttpTransport httpTransport = new NetHttpTransport();
 
-    JsonFactory jsonFactory = new JsonFactory()
-    {
-        public JsonParser createJsonParser(InputStream inputStream) throws IOException
-        {
-            return null;
-        }
+    JsonFactory jsonFactory = new JacksonFactory();
 
-        public JsonParser createJsonParser(InputStream inputStream, Charset charset) throws IOException
-        {
-            return null;
-        }
-
-        public JsonParser createJsonParser(String s) throws IOException
-        {
-            return null;
-        }
-
-        public JsonParser createJsonParser(Reader reader) throws IOException
-        {
-            return null;
-        }
-
-        public JsonGenerator createJsonGenerator(OutputStream outputStream, Charset charset) throws IOException
-        {
-            return null;
-        }
-
-        public JsonGenerator createJsonGenerator(Writer writer) throws IOException
-        {
-            return null;
-        }
-    };
-
-    GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory)
+    GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(httpTransport, jsonFactory)
             .setAudience(Collections.singletonList("176022414732-multinga95b6se0j9024vogb8t24rvge.apps.googleusercontent.com"))
             .build();
 
@@ -106,9 +71,20 @@ public class UserService
         return users.get(id);
     }
 
+    //This is a test method to see if I can fucking write a POST method
+    @POST
+    @Path("/getsomething")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public void getMessage(GoogleToken googleToken)
+    {
+        System.out.println(googleToken.getId_token());
+    }
+
     @POST
     @Path("/{param}")
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces({MediaType.TEXT_PLAIN})
     public Response getGoogleId(@PathParam("param") String idTokenString) throws GeneralSecurityException, IOException
     {
         System.out.println("inside post method . .");
