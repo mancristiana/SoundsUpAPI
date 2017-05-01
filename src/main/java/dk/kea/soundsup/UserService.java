@@ -19,7 +19,6 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.*;
-import java.nio.charset.Charset;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -71,24 +70,26 @@ public class UserService
         return users.get(id);
     }
 
-    //This is a test method to see if I can fucking write a POST method
-    @POST
-    @Path("/getsomething")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public void getMessage(GoogleToken googleToken)
-    {
-        System.out.println(googleToken.getId_token());
-    }
+//    //This is a test method to see if I can fucking write a POST method
+//    @POST
+//    @Path("/getsomething")
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public void getMessage(GoogleToken googleToken)
+//    {
+//        System.out.println(googleToken.getId_token());
+//    }
 
     @POST
-    @Path("/{param}")
+    @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces({MediaType.TEXT_PLAIN})
-    public Response getGoogleId(@PathParam("param") String idTokenString) throws GeneralSecurityException, IOException
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getGoogleId(GoogleToken googleToken) throws GeneralSecurityException, IOException
     {
+        String message = "";
+        int status;
         System.out.println("inside post method . .");
-        GoogleIdToken idToken = verifier.verify(idTokenString);
+        GoogleIdToken idToken = verifier.verify(googleToken.getId_token());
         if (idToken != null) {
             GoogleIdToken.Payload payload = idToken.getPayload();
 
@@ -108,10 +109,21 @@ public class UserService
             // Use or store profile information
             System.out.println("The id is good :D");
 
+            status = 201;
+            message = "This id is good";
+
         } else {
             System.out.println("Invalid ID token.");
+            status = 406;
+            message = "Invalid ID token.";
         }
 
-        return Response.status(201).entity(idTokenString).build();
+        return Response
+                .status(status)
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Methods", "GET, POST, PATCH, PUT, DELETE")
+                .header("Access-Control-Allow-Headers", "Origin, Content-Type, X-Auth-Token")
+                .entity(googleToken)
+                .build();
     }
 }
