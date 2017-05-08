@@ -13,7 +13,6 @@ import dk.kea.soundsup.model.GoogleToken;
 import dk.kea.soundsup.model.User;
 import dk.kea.soundsup.utility.CORSResponseFilter;
 
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
@@ -71,16 +70,6 @@ public class UserService
 
         return users.get(id);
     }
-
-//    //This is a test method to see if I can fucking write a POST method
-//    @POST
-//    @Path("/getsomething")
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public void getMessage(GoogleToken googleToken)
-//    {
-//        System.out.println(googleToken.getId_token());
-//    }
 
     @POST
     @Path("/")
