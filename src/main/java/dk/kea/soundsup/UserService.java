@@ -51,6 +51,39 @@ public class UserService
         return users;
     }
 
+    /**
+    * @api {get} /users Request all users
+    * @apiName GetAllUsers
+    * @apiGroup User
+    * @apiVersion 0.0.1
+    *
+    * @apiDescription This request returns a list of all users in the database
+    *
+    * @apiSuccess {Number} id Unique user id generated on sign up.
+    * @apiSuccess {String} firstName First name of the user.
+    * @apiSuccess {String} lastName Last name of the user.
+    * @apiSuccess {String} email The users email used for sign up.
+    *
+    * @apiSuccessExample Success-Response:
+    * {
+    *       "id": 0,
+    *       "firstName": "Cristiana",
+    *       "lastName": "Man",
+    *       "email": "cma@mail.com"
+    *  },
+    *  {
+    *       "id": 1,
+    *       "firstName": "Andrei",
+    *       "lastName": "Atanasiu",
+    *       "email": "aa@mail.dk"
+    *  }
+    *
+    * @apiErrorExample Error-Response:
+    * HTTP/1.1 400 Bad Request
+    * {
+    *      "error": "User table not found"
+    * }
+    */
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public List<User> getAllUsers(@Context HttpHeaders header, @Context HttpServletResponse response) {
@@ -62,6 +95,34 @@ public class UserService
         return users;
     }
 
+    /**
+    * @api {get} /users/{id} Request specific user information
+    * @apiName getUserById
+    * @apiGroup User
+    * @apiVersion 0.0.1
+    *
+    * @apiParam {Number} id The unique ID of the user.
+    *
+    * @apiSuccess {Number} id Unique user id generated on sign up.
+    * @apiSuccess {String} firstName First name of the user.
+    * @apiSuccess {String} lastName Last name of the user.
+    * @apiSuccess {String} email The users email used for sign up.
+    *
+    * @apiSuccessExample Success-Response:
+    * {
+    *       "id": 3,
+    *       "firstName": "Bat",
+    *       "lastName": "Man",
+    *       "email": "batman@super.org";
+    * }
+    *
+    * @apiErrorExample Error-Response:
+    * HTTP/1.1 400 Bad Request
+    * {
+    *       "error": "User not found"
+    * }
+    *
+    */
     @GET
     @Path("/{id}")
     @Produces({MediaType.APPLICATION_JSON})
@@ -71,6 +132,32 @@ public class UserService
         return users.get(id);
     }
 
+    /**
+    * @api {post} /users/{idToken} Create a new user using a google sign in token.
+    * @apiName getGoogleId
+    * @apiGroup User
+    * @apiVersion 0.0.1
+    *
+    * @apiParam {String} google ID obtained during sign up on the frontend.
+    *
+    * @apiSuccess {Number} id Unique ID generated on sign up.
+    * @apiSuccess {String} firstName First Name of the user.
+    * @apiSuccess {String} lastName Last name of the user.
+    * @apiSuccess {String} email The users email used for sign up.
+    *
+    * @apiSuccessExample Success-Response:
+    * HTTP/1.1 201 OK
+    * {
+    *
+    * }
+    *
+    * @apiErrorExample Error-Response
+    * HTTP/1.1 406 Bad Request
+    * {
+    *       "error": "Invalid ID Token"
+    * }
+    *
+     */
     @POST
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
