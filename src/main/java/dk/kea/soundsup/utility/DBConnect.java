@@ -38,6 +38,7 @@ public class DBConnect
             {
                 User user = new User(rs.getInt("id"), rs.getString("firstName"),
                         rs.getString("lastName"), rs.getString("email"));
+                System.out.println(user);
                 allUsersDB.add(user);
             }
 

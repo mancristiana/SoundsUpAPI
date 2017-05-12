@@ -92,7 +92,6 @@ public class UserService
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");
 
         DBConnect connect = new DBConnect();
-
         return connect.getAllUsersDB();
     }
 
