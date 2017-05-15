@@ -1,1 +1,1 @@
-web: java -cp target/classes:target/SoundsUpApi/lib/* dk.kea.soundsup.SoundsUp
+web: java $JAVA_OPTS -jar target/dependency/* --port $PORT target/*.war
