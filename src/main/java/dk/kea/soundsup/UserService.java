@@ -40,6 +40,8 @@ public class UserService
             .setAudience(Collections.singletonList("176022414732-multinga95b6se0j9024vogb8t24rvge.apps.googleusercontent.com"))
             .build();
 
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
     public List<User> getAllUsersDB() {
         List<User> users = new ArrayList<User>();
 
@@ -85,15 +87,15 @@ public class UserService
     *      "error": "User table not found"
     * }
     */
-    @GET
-    @Produces({MediaType.APPLICATION_JSON})
-    public List<User> getAllUsers(@Context HttpHeaders header, @Context HttpServletResponse response) {
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");
-
-        DBConnect connect = new DBConnect();
-        return connect.getAllUsersDB();
-    }
+//    @GET
+//    @Produces({MediaType.APPLICATION_JSON})
+//    public List<User> getAllUsers(@Context HttpHeaders header, @Context HttpServletResponse response) {
+//        response.setHeader("Access-Control-Allow-Origin", "*");
+//        response.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");
+//
+//        DBConnect connect = new DBConnect();
+//        return connect.getAllUsersDB();
+//    }
 
     /**
     * @api {get} /users/{id} Request specific user information

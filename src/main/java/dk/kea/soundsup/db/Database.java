@@ -23,16 +23,16 @@ public class Database {
         return DriverManager.getConnection(jdbUrl, username, password);
     }
 
-    public static void main(String[] args) {
-        try {
-            Database.getConnection();
-            System.out.println("Connected sucessfully");
-        } catch (URISyntaxException exception) {
-            System.out.println("URISyntaxException caught");
-            exception.printStackTrace();
-        } catch (SQLException exception) {
-            System.out.println("SQLException caught");
-            exception.printStackTrace();
-        }
-    }
+//    public static void main(String[] args) {
+//        try {
+//            Database.getConnection();
+//            System.out.println("Connected sucessfully");
+//        } catch (URISyntaxException exception) {
+//            System.out.println("URISyntaxException caught");
+//            exception.printStackTrace();
+//        } catch (SQLException exception) {
+//            System.out.println("SQLException caught");
+//            exception.printStackTrace();
+//        }
+//    }
 }
