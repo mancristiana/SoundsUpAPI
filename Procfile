@@ -1,1 +1,1 @@
-web: java -cp target/classes:target/dependency/* dk.kea.soundsup.Main
+web: java -cp target/classes:target/dependency/* dk.kea.soundsup.UserService
