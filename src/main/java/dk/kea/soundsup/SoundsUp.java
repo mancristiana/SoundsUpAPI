@@ -16,11 +16,12 @@ public class SoundsUp extends org.glassfish.jersey.server.ResourceConfig
      */
     public SoundsUp()
     {
-        //register application resources
-        register(UserService.class);
-        register(HelloWorld.class);
-
-        //register filters
-        register(CORSResponseFilter.class);
+        packages("dk.kea.soundsup");
+//        //register application resources
+//        register(UserService.class);
+//        register(HelloWorld.class);
+//
+//        //register filters
+//        register(CORSResponseFilter.class);
     }
 }
