@@ -51,5 +51,12 @@
             <version>9.4.5.v20170502</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.glassfish.extras/glassfish-embedded-all -->
+        <dependency>
+            <groupId>org.glassfish.extras</groupId>
+            <artifactId>glassfish-embedded-all</artifactId>
+            <version>3.2-b06</version>
+        </dependency>
+
     </dependencies>
 </project>

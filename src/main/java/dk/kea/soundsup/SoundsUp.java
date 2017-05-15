@@ -1,14 +1,20 @@
 package dk.kea.soundsup;
 
-import com.sun.jersey.api.core.ResourceConfig;
-import dk.kea.soundsup.utility.CORSResponseFilter;
 
-import javax.ws.rs.core.Application;
+import org.glassfish.embeddable.*;
+
 import java.io.File;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 
 public class SoundsUp
 {
+    public static void main(String[] args) throws GlassFishException {
+        String port = System.getenv("PORT");
+        GlassFishProperties gfProps = new GlassFishProperties();
+        gfProps.setPort("http-listener", Integer.parseInt(port));
+        GlassFish glassFish = GlassFishRuntime.bootstrap().newGlassFish(gfProps);
+        glassFish.start();
+        Deployer deployer = glassFish.getDeployer();
+        File file = new File("SoundsUpApi.war");
+        deployer.deploy(file);
+    }
 }
