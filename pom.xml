@@ -7,7 +7,6 @@
     <groupId>dk.kea.soundsup</groupId>
     <artifactId>SoundsUpAPI</artifactId>
     <version>1.0</version>
-
     <dependencies>
         <dependency>
             <groupId>com.sun.jersey</groupId>
@@ -37,18 +36,6 @@
             <groupId>javax.ws.rs</groupId>
             <artifactId>javax.ws.rs-api</artifactId>
             <version>2.0.1</version>
-        </dependency>
-
-            <dependency>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-server</artifactId>
-                <version>7.1.6.v20100715</version>
-            </dependency>
-
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-webapp</artifactId>
-            <version>9.4.5.v20170502</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.glassfish.extras/glassfish-embedded-all -->
