@@ -1,1 +1,1 @@
-web: java -cp target/classes:target/dependency/* dk.kea.soundsup.SoundsUp
+web: sh target/bin/web
