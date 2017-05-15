@@ -1,30 +1,20 @@
 package dk.kea.soundsup;
 
-
-import com.sun.jersey.api.core.ResourceConfig;
-
+import javax.ws.rs.core.Application;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
-public class SoundsUp extends ResourceConfig
+public class SoundsUp extends Application
 {
-    public Map<String, Boolean> getFeatures()
-    {
-        return null;
-    }
+    @Override
+    public Set<Class<?>> getClasses() {
+        final Set<Class<?>> classes = new HashSet<Class<?>>();
 
-    public boolean getFeature(String s)
-    {
-        return false;
-    }
+        // register resources and features
+        classes.add(UserService.class);
+        classes.add(HelloWorld.class);
 
-    public Map<String, Object> getProperties()
-    {
-        return null;
+        return classes;
     }
-
-    public Object getProperty(String s)
-    {
-        return null;
-    }
-
 }
