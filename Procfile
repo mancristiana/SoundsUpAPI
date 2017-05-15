@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -cp target/dependency/glassfish-embedded-all-4.0.jar:target/classes dk.kea.soundsup.SoundsUp
+web: java -cp target/classes:target/SoundsUpApi/lib/* dk.kea.soundsup.SoundsUp
