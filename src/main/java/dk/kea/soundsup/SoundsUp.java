@@ -9,19 +9,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class SoundsUp extends org.glassfish.jersey.server.ResourceConfig
+public class SoundsUp
 {
-    /**
-     * Register JAX-RS application components.
-     */
-    public SoundsUp()
-    {
-        packages("dk.kea.soundsup");
-//        //register application resources
-//        register(UserService.class);
-//        register(HelloWorld.class);
-//
-//        //register filters
-//        register(CORSResponseFilter.class);
-    }
 }
