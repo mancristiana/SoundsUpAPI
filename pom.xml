@@ -7,7 +7,6 @@
     <groupId>dk.kea.soundsup</groupId>
     <artifactId>SoundsUpAPI</artifactId>
     <version>1.0</version>
-
     <dependencies>
         <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
         <dependency>
@@ -38,12 +37,19 @@
             <artifactId>google-api-client</artifactId>
             <version>1.22.0</version>
         </dependency>
+
         <dependency>
             <groupId>javax.ws.rs</groupId>
             <artifactId>javax.ws.rs-api</artifactId>
             <version>2.0.1</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.glassfish.extras/glassfish-embedded-all -->
+        <dependency>
+            <groupId>org.glassfish.extras</groupId>
+            <artifactId>glassfish-embedded-all</artifactId>
+            <version>3.2-b06</version>
+        </dependency>
+
     </dependencies>
-    
 </project>

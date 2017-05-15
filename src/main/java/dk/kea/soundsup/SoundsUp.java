@@ -1,30 +1,28 @@
 package dk.kea.soundsup;
 
 
-import com.sun.jersey.api.core.ResourceConfig;
+import org.glassfish.embeddable.*;
 
-import java.util.Map;
+import java.io.File;
 
-public class SoundsUp extends ResourceConfig
+public class SoundsUp
 {
-    public Map<String, Boolean> getFeatures()
+    public static void main(String[] args) throws Exception
     {
-        return null;
-    }
+        String port = System.getenv("PORT");
+        GlassFishProperties gfProps = new GlassFishProperties();
+        gfProps.setPort("http-listener", Integer.parseInt(port));
+        try
+        {
+            GlassFish glassFish = GlassFishRuntime.bootstrap().newGlassFish(gfProps);
+            glassFish.start();
+            Deployer deployer = glassFish.getDeployer();
+            File file = new File("SoundsUpApi.war");
+            deployer.deploy(file);
+        }catch(Exception exc)
+        {
+            exc.printStackTrace();
+        }
 
-    public boolean getFeature(String s)
-    {
-        return false;
     }
-
-    public Map<String, Object> getProperties()
-    {
-        return null;
-    }
-
-    public Object getProperty(String s)
-    {
-        return null;
-    }
-
 }

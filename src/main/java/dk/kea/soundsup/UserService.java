@@ -12,6 +12,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import dk.kea.soundsup.model.GoogleToken;
 import dk.kea.soundsup.model.User;
 import dk.kea.soundsup.utility.CORSResponseFilter;
+import dk.kea.soundsup.utility.DBConnect;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.*;
@@ -90,9 +91,8 @@ public class UserService
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");
 
-        List<User> users = getAllUsersDB();
-
-        return users;
+        DBConnect connect = new DBConnect();
+        return connect.getAllUsersDB();
     }
 
     /**
