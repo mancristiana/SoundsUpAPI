@@ -3,5 +3,5 @@
   "version": "0.0.1",
   "description": "Documentaion for SoundsUp Web API social media platform",
   "title": "SoundsUp API",
-  "url": "https://sounds-up-api.herokuapp.com"
+  "url": "https://sounds-up-api.herokuapp.com/api"
 }
