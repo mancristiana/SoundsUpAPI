@@ -15,32 +15,29 @@ import dk.kea.soundsup.model.User;
 public class UserEndpoint {
 
     /**
-     * @api {get} /users Request all users
+     * @api {get} /users Get all users
      * @apiName GetAllUsers
      * @apiGroup User
      * @apiVersion 0.0.1
      * @apiDescription This request returns a list of all users in the database
      * @apiSuccess {Number} id Unique user id generated on sign up.
-     * @apiSuccess {String} firstName First name of the user.
-     * @apiSuccess {String} lastName Last name of the user.
+     * @apiSuccess {String} name First and last name of the user.
      * @apiSuccess {String} email The users email used for sign up.
      * @apiSuccessExample Success-Response:
      * {
-     * "id": 0,
-     * "firstName": "Cristiana",
-     * "lastName": "Man",
-     * "email": "cma@mail.com"
+     *      "id": 0,
+     *      "name": "Cristiana Man",
+     *      "email": "cma@mail.com"
      * },
      * {
-     * "id": 1,
-     * "firstName": "Andrei",
-     * "lastName": "Atanasiu",
-     * "email": "aa@mail.dk"
+     *      "id": 1,
+     *      "name": "Andrei Atanasiu",
+     *      "email": "aa@mail.dk"
      * }
      * @apiErrorExample Error-Response:
      * HTTP/1.1 400 Bad Request
      * {
-     * "error": "User table not found"
+     *      "error": "User table not found"
      * }
      */
 
@@ -49,36 +46,34 @@ public class UserEndpoint {
     public List<User> getAllUsersDB() {
         List<User> users = new ArrayList<User>();
 
-        users.add(new User(0, "Cristiana", "Man", "cma@mail.com"));
-        users.add(new User(1, "Adriel", "Premer", "adriel@site.com"));
-        users.add(new User(2, "Batman", "Man", "batman@super.org"));
-        users.add(new User(3, "Superman", "Man", "superman@super.org"));
+        users.add(new User(0, "Cristiana Man", "cma@mail.com"));
+        users.add(new User(1, "Adriel Premer", "adriel@site.com"));
+        users.add(new User(2, "Batman Man", "batman@super.org"));
+        users.add(new User(3, "Superman Man", "superman@super.org"));
 
 
         return users;
     }
 
     /**
-     * @api {get} /users/{id} Request specific user information
+     * @api {get} /users/{id} Get user
      * @apiName getUserById
      * @apiGroup User
      * @apiVersion 0.0.1
      * @apiParam {Number} id The unique ID of the user.
      * @apiSuccess {Number} id Unique user id generated on sign up.
-     * @apiSuccess {String} firstName First name of the user.
-     * @apiSuccess {String} lastName Last name of the user.
+     * @apiSuccess {String} name First and last name of the user.
      * @apiSuccess {String} email The users email used for sign up.
      * @apiSuccessExample Success-Response:
      * {
-     * "id": 3,
-     * "firstName": "Bat",
-     * "lastName": "Man",
-     * "email": "batman@super.org";
+     *      "id": 3,
+     *      "name": "Bat Man",
+     *      "email": "batman@super.org";
      * }
      * @apiErrorExample Error-Response:
      * HTTP/1.1 400 Bad Request
      * {
-     * "error": "User not found"
+     *      "error": "User not found"
      * }
      */
 
