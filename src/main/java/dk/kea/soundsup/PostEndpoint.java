@@ -1,5 +1,6 @@
 package dk.kea.soundsup;
 
+import dk.kea.soundsup.db.PostDAO;
 import dk.kea.soundsup.model.Post;
 import dk.kea.soundsup.model.User;
 
@@ -63,20 +64,17 @@ public class PostEndpoint {
      */
 
 
-
-
-
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public List<Post> getAllPosts() {
-        List<Post> posts = new ArrayList<Post>();
+//        List<Post> posts =
 
-        posts.add(new Post(0, 23, "2eOn7OyFJ8ygzBrWGirpsB", "Some song"));
-        posts.add(new Post(1, 32, "1e2GBOtPyLu7iuNm4EvFKG", "Another description"));
-        posts.add(new Post(2, 11, "1zRFuPnqjBckEoOFliJyaI", "Such wow"));
-        posts.add(new Post(3, 11, "27HNh1cyB39ERqdpSjM2i1", "Amazing"));
+//        posts.add(new Post(0, 23, "2eOn7OyFJ8ygzBrWGirpsB", "Some song"));
+//        posts.add(new Post(1, 32, "1e2GBOtPyLu7iuNm4EvFKG", "Another description"));
+//        posts.add(new Post(2, 11, "1zRFuPnqjBckEoOFliJyaI", "Such wow"));
+//        posts.add(new Post(3, 11, "27HNh1cyB39ERqdpSjM2i1", "Amazing"));
 
-        return posts;
+        return PostDAO.selectAllPosts();
     }
 
     /**
