@@ -164,7 +164,7 @@
   {
     "type": "get",
     "url": "/users",
-    "title": "Request all users",
+    "title": "Get all users",
     "name": "GetAllUsers",
     "group": "User",
     "version": "0.0.1",
@@ -183,15 +183,8 @@
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "firstName",
-            "description": "<p>First name of the user.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "lastName",
-            "description": "<p>Last name of the user.</p>"
+            "field": "name",
+            "description": "<p>First and last name of the user.</p>"
           },
           {
             "group": "Success 200",
@@ -205,7 +198,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "{\n\"id\": 0,\n\"firstName\": \"Cristiana\",\n\"lastName\": \"Man\",\n\"email\": \"cma@mail.com\"\n},\n{\n\"id\": 1,\n\"firstName\": \"Andrei\",\n\"lastName\": \"Atanasiu\",\n\"email\": \"aa@mail.dk\"\n}",
+          "content": "{\n     \"id\": 0,\n     \"name\": \"Cristiana Man\",\n     \"email\": \"cma@mail.com\"\n},\n{\n     \"id\": 1,\n     \"name\": \"Andrei Atanasiu\",\n     \"email\": \"aa@mail.dk\"\n}",
           "type": "json"
         }
       ]
@@ -214,7 +207,7 @@
       "examples": [
         {
           "title": "Error-Response:",
-          "content": "HTTP/1.1 400 Bad Request\n{\n\"error\": \"User table not found\"\n}",
+          "content": "HTTP/1.1 400 Bad Request\n{\n     \"error\": \"User table not found\"\n}",
           "type": "json"
         }
       ]
@@ -225,7 +218,7 @@
   {
     "type": "get",
     "url": "/users/{id}",
-    "title": "Request specific user information",
+    "title": "Get user",
     "name": "getUserById",
     "group": "User",
     "version": "0.0.1",
@@ -256,15 +249,8 @@
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "firstName",
-            "description": "<p>First name of the user.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "lastName",
-            "description": "<p>Last name of the user.</p>"
+            "field": "name",
+            "description": "<p>First and last name of the user.</p>"
           },
           {
             "group": "Success 200",
@@ -278,7 +264,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "{\n\"id\": 3,\n\"firstName\": \"Bat\",\n\"lastName\": \"Man\",\n\"email\": \"batman@super.org\";\n}",
+          "content": "{\n     \"id\": 3,\n     \"name\": \"Bat Man\",\n     \"email\": \"batman@super.org\";\n}",
           "type": "json"
         }
       ]
@@ -287,7 +273,7 @@
       "examples": [
         {
           "title": "Error-Response:",
-          "content": "HTTP/1.1 400 Bad Request\n{\n\"error\": \"User not found\"\n}",
+          "content": "HTTP/1.1 400 Bad Request\n{\n     \"error\": \"User not found\"\n}",
           "type": "json"
         }
       ]
