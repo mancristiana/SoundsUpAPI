@@ -4,40 +4,24 @@ package dk.kea.soundsup.model;
  * Created by mancr on 17-May-17.
  */
 public class Post {
-    private int postId;
-    private int userId;
-    private String trackId;
+    private int id;
     private String description;
+    private User user;
+    private Track track;
 
-    public Post(int postId, int userId, String trackId, String description) {
-        this.postId = postId;
-        this.userId = userId;
-        this.trackId = trackId;
+    public Post(int id, String description, User user, Track track) {
+        this.id = id;
         this.description = description;
+        this.user = user;
+        this.track = track;
     }
 
-    public int getPostId() {
-        return postId;
+    public int getId() {
+        return id;
     }
 
-    public void setPostId(int postId) {
-        this.postId = postId;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public String getTrackId() {
-        return trackId;
-    }
-
-    public void setTrackId(String trackId) {
-        this.trackId = trackId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getDescription() {
@@ -46,5 +30,21 @@ public class Post {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Track getTrack() {
+        return track;
+    }
+
+    public void setTrack(Track track) {
+        this.track = track;
     }
 }
