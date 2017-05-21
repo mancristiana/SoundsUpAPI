@@ -23,40 +23,46 @@ public class PostEndpoint {
      * @apiVersion 0.0.1
      * @apiDescription This request returns a list of all posts in the database
      * @apiSuccess {Number} post_id Unique post identifier
-     * @apiSuccess {Number} user_id Unique user identifier generated on sign up.
-     * @apiSuccess {String} track_id Unique identifier for the track corresponding to Spotify API Database.
      * @apiSuccess {String} description Content of the post
+     * @apiSuccess {User} user object representing the post author. Please refer to the user enpoint for the structure of the user.
+     * @apiSuccess {Track} track object shared within the post
      * @apiSuccessExample Success Response
      * HTTP/1.1 200 OK
      * [
-     * {
-     * "postId": 0,
-     * "userId": 23,
-     * "trackId": "2eOn7OyFJ8ygzBrWGirpsB",
-     * "description": "Some song"
-     * },
-     * {
-     * "postId": 1,
-     * "userId": 32,
-     * "trackId": "1e2GBOtPyLu7iuNm4EvFKG",
-     * "description": "Another description"
-     * },
-     * {
-     * "postId": 2,
-     * "userId": 11,
-     * "trackId": "1zRFuPnqjBckEoOFliJyaI",
-     * "description": "Such wow"
-     * },
-     * {
-     * "postId": 3,
-     * "userId": 11,
-     * "trackId": "27HNh1cyB39ERqdpSjM2i1",
-     * "description": "Amazing"
-     * }
+     *      {
+     *          "id": 0,
+     *          "description": "Wow amazing song",
+     *          "user": {
+     *              "id": 3,
+     *              "name": "Andrei",
+     *              "email": "and@man.com"
+     *          },
+     *          "track": {
+     *              "id": 1,
+     *              "spotifyId": "5anCkDvJ17aznvK5TED5uo",
+     *              "name": "Hail to the King",
+     *              "previewUrl": "https://p.scdn.co/mp3-preview/7a8932458d8ea00a425b629f43c4d44af0c9a029?cid=null",
+     *              "album": {
+     *                  "id": "0ks45m1bsP2JsZpM5D2FFA",
+     *                  "name": "Hail to the King",
+     *                  "imageUrl": "https://i.scdn.co/image/d6fef16190f1516d0efe91c0d1bc6f28d8aa8865"
+     *              },
+     *              "artist": {
+     *                  "id": "0ks45m1bsP2JsZpM5D2FFA",
+     *                  "name": "Avenged Sevenfold"
+     *              },
+     *              "externalUrls": {
+     *                  "spotify": "https://open.spotify.com/album/0ks45m1bsP2JsZpM5D2FFA"
+     *              }
+     *          }
+     *     },
+     *     ...
      * ]
+     *
      * @apiError (Error 4xx) 400 Bad request
      * @apiError (Error 5xx) 500 Server has encountered a problem
      */
+
 
 
     @GET
