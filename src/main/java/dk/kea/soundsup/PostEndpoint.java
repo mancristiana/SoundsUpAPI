@@ -19,14 +19,14 @@ public class PostEndpoint {
     /**
      * @api {get} /posts Get all posts
      * @apiName GetAllPosts
-     * @apiGroup Post
+     * @apiGroup Posts
      * @apiVersion 0.0.1
      * @apiDescription This request returns a list of all posts in the database
      * @apiSuccess {Number} post_id Unique post identifier
      * @apiSuccess {String} description Content of the post
-     * @apiSuccess {User} user object representing the post author. Please refer to the user enpoint for the structure of the user.
+     * @apiSuccess {User} user object representing the post author. Please refer to the user endpoint for the structure of the user.
      * @apiSuccess {Track} track object shared within the post
-     * @apiSuccessExample Success Response
+     * @apiSuccessExample {json} SuccessResponse
      * HTTP/1.1 200 OK
      * [
      *      {
@@ -73,7 +73,7 @@ public class PostEndpoint {
     /**
      * @api {get} /posts/{id} Get post
      * @apiName GetPost
-     * @apiGroup Post
+     * @apiGroup Posts
      * @apiVersion 0.0.1
      * @apiDescription This request returns the post with the specified id
      * @apiSuccess {Number} post_id Unique post identifier
@@ -93,6 +93,58 @@ public class PostEndpoint {
         return post;
     }
 
+
+
+    /**
+     * @api {post} /posts Create Post
+     * @apiName CreatePost
+     * @apiGroup Posts
+     * @apiVersion 0.0.1
+     *
+     * @apiDescription This request creates a new post by using the json body provided. For consistency the json should include the parameters specified below. A postId field is generated automatically and returned in the response once the post has been saved.
+     *
+     * @apiParam {String} description Content of the post
+     * @apiParam {User} user object representing the post author. Please refer to the user endpoint for the structure of the user.
+     * @apiParam {Track} track object shared within the post
+     *
+     * @apiParamExample {json} Post Example
+     * {
+     *     "id": 0,
+     *     "description": "This is a description example!",
+     *     "user": {
+     *         "id": 3
+     *     },
+     *     "track": {
+     *         "spotifyId": "5anCkDvJ17aznvK5TED5uo",
+     *         "name": "Hail to the King",
+     *         "previewUrl": "https://p.scdn.co/mp3-preview/7a8932458d8ea00a425b629f43c4d44af0c9a029?cid=null",
+     *         "album": {
+     *             "id": "0ks45m1bsP2JsZpM5D2FFA",
+     *             "name": "Hail to the King",
+     *             "imageUrl": "https://i.scdn.co/image/d6fef16190f1516d0efe91c0d1bc6f28d8aa8865"
+     *         },
+     *         "artist": {
+     *             "id": "0ks45m1bsP2JsZpM5D2FFA",
+     *             "name": "Avenged Sevenfold"
+     *         },
+     *         "externalUrls": {
+     *             "spotify": "https://open.spotify.com/album/0ks45m1bsP2JsZpM5D2FFA"
+     *         }
+     *     }
+     * }
+     *
+     * @apiSuccess (Success 2xx) 201 Post Created
+     *
+     * @apiSuccessExample {json} Success Response
+     *     HTTP/1.1 201 Created
+     *     {
+     *       "status": 201,
+     *       "message": "Post with id = {id} was sucessfully inserted."
+     *     }
+     *
+     * @apiError (Error 4xx) 400 Bad Request
+     * @apiError (Error 5xx) 500 Internal Server Error
+     */
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
@@ -106,9 +158,9 @@ public class PostEndpoint {
             responseMessage.setStatus(400);
             responseMessage.setMessage("An error occured while trying to process your request");
         } else {
-            responseMessage.setStatus(200);
+            responseMessage.setStatus(201);
             responseMessage.setMessage("Post with id = " + postId + " was sucessfully inserted.");
-        }
+    }
 
         return Response
                 .status(responseMessage.getStatus())
