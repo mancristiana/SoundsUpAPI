@@ -12,34 +12,36 @@ import java.util.List;
  */
 public class PostDAO {
 
-//    /**
-//     * This method inserts a new post into the database
-//     *
-//     * @param post Post to be inserted in the database
-//     * @return int representing the generated ID of the post. If an error occurs during the database insertion, the method returns -1
-//     */
-//    public static int insertPost(Post post) {
-//        try (Connection connection = Database.getConnection()) {
-//
-//            String sql = "INSERT INTO `post` (`description`, `user_id`, `track_id`) VALUES (?, ?, ?)";
-//
-//            PreparedStatement statement = connection.prepareStatement(sql);
-//            statement.setString(1, post.getDescription());
-//            statement.setInt(2, post.getUserId());
-//            statement.setString(3, post.getTrackId());
-//
-//            statement.executeUpdate();
-//            ResultSet rs = statement.getGeneratedKeys();
-//            if (rs.next()) {
-//                return rs.getInt(1);
-//            }
-//        } catch (SQLException | URISyntaxException e) {
-//            e.printStackTrace();
-//        }
-//
-//        return -1;
-//
-//    }
+    /**
+     * This method inserts a new post into the database
+     *
+     * @param post Post to be inserted in the database
+     * @return int representing the generated ID of the post. If an error occurs during the database insertion, the method returns -1
+     */
+    public static int insertPost(Post post) {
+        try (Connection connection = Database.getConnection()) {
+
+            String sql = "INSERT INTO `post` (`description`, `user_id`, `track_id`) VALUES (?, ?, ?)";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, post.getDescription());
+            statement.setInt(2, post.getUser().getId());
+            statement.setInt(3, post.getTrack().getId());
+
+            statement.executeUpdate();
+            ResultSet rs = statement.getGeneratedKeys();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+
+            Database.closeConnection(connection);
+        } catch (SQLException | URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        return -1;
+
+    }
 
     public static List<Post> selectAllPosts() {
         List<Post> posts = new ArrayList<>();
@@ -94,6 +96,8 @@ public class PostDAO {
                 Post post = new Post(postId, description, user, track);
                 posts.add(post);
             }
+
+            Database.closeConnection(connection);
 
         } catch (SQLException | URISyntaxException e) {
             e.printStackTrace();
