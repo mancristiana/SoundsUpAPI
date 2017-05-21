@@ -84,6 +84,75 @@ define({ "api": [
     "groupTitle": "Posts"
   },
   {
+    "type": "delete",
+    "url": "/post/{id}",
+    "title": "Delete Post",
+    "name": "DeletePost",
+    "group": "Posts",
+    "version": "0.0.1",
+    "description": "<p>This request deletes an existing post with the id specified in the request URL.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The id of the Post</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 2xx": [
+          {
+            "group": "Success 2xx",
+            "optional": false,
+            "field": "202",
+            "description": "<p>Accepted</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 202 Accepted\n{\n     \"status\" : 202,\n     \"message\" : \"Post was successfully deleted\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "404",
+            "description": "<p>Post Not Found</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "400",
+            "description": "<p>Bad Request</p>"
+          }
+        ],
+        "Error 5xx": [
+          {
+            "group": "Error 5xx",
+            "optional": false,
+            "field": "500",
+            "description": "<p>Internal Server Error</p>"
+          }
+        ]
+      }
+    },
+    "filename": "src/main/java/dk/kea/soundsup/PostEndpoint.java",
+    "groupTitle": "Posts"
+  },
+  {
     "type": "get",
     "url": "/posts",
     "title": "Get all posts",
@@ -268,7 +337,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 201 Created\n{\n     \"status\" : 201,\n     \"message\" : \"Post was successfully edited\"\n}",
+          "content": "HTTP/1.1 201 Edited\n{\n     \"status\" : 201,\n     \"message\" : \"Post was successfully edited\"\n}",
           "type": "json"
         }
       ]

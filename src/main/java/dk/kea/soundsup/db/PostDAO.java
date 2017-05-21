@@ -150,6 +150,31 @@ public class PostDAO {
 
     }
 
+    /**
+     * This method deletes a post with id passed through the post object
+     * @param id int representing the unique identifier of the post to be updated
+     * @return boolean representing whether the entry was deleted successfully or not
+     */
+    public static boolean deletePost(int id) {
+        boolean isDeleted = false;
+        try (Connection connection = Database.getConnection()) {
+
+            String sql = "DELETE FROM `post` WHERE `post_id`= ?";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
+
+            isDeleted = statement.executeUpdate() > 0;
+
+            Database.closeConnection(connection);
+        } catch (SQLException | URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        return isDeleted;
+
+    }
+
     private static Post getPostFromResultSet(ResultSet resultSet) throws SQLException {
         // Author details
         int userId = resultSet.getInt("user_id");

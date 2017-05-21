@@ -178,7 +178,7 @@ public class PostEndpoint {
      * @apiSuccess (Success 2xx) 201 Post Edited
      *
      * @apiSuccessExample {json} Success-Response:
-     * HTTP/1.1 201 Created
+     * HTTP/1.1 201 Edited
      * {
      *      "status" : 201,
      *      "message" : "Post was successfully edited"
@@ -199,6 +199,46 @@ public class PostEndpoint {
         post.setId(id);
         if(PostDAO.updatePost(post)) {
             responseMessage = new ResponseMessage(201, "Post was successfully edited");
+        } else {
+            responseMessage = new ResponseMessage(404, "Post not found");
+
+        }
+        return Response
+                .status(responseMessage.getStatus())
+                .entity(responseMessage)
+                .build();
+    }
+
+    /**
+     * @api {delete} /post/{id} Delete Post
+     * @apiName DeletePost
+     * @apiGroup Posts
+     * @apiVersion 0.0.1
+     *
+     * @apiDescription This request deletes an existing post with the id specified in the request URL.
+     * @apiParam {string} id The id of the Post
+     *
+     * @apiSuccess (Success 2xx) 202 Accepted
+     *
+     * @apiSuccessExample {json} Success-Response:
+     * HTTP/1.1 202 Accepted
+     * {
+     *      "status" : 202,
+     *      "message" : "Post was successfully deleted"
+     * }
+     *
+     * @apiError 404 Post Not Found
+     * @apiError 400 Bad Request
+     * @apiError (Error 5xx) 500 Internal Server Error
+     *
+     */
+    @DELETE
+    @Path("/{id}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response editPost(@PathParam("id") int id) {
+        ResponseMessage responseMessage;
+        if(PostDAO.deletePost(id)) {
+            responseMessage = new ResponseMessage(202, "Post was successfully deleted");
         } else {
             responseMessage = new ResponseMessage(404, "Post not found");
 
