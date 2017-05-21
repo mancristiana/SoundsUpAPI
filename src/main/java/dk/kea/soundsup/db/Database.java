@@ -20,4 +20,8 @@ public class Database {
 
         return DriverManager.getConnection(jdbUrl, username, password);
     }
+
+    public static void closeConnection(Connection connection) throws SQLException {
+        connection.close();
+    }
 }
