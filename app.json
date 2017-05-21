@@ -1,0 +1,21 @@
+{
+  "name": "SoundsUpAPI",
+  "description": " Java based RESTful Web Service for a social media platform called SoundsUp",
+  "scripts": {
+  },
+  "env": {
+    "JAWSDB_URL": {
+      "required": true
+    }
+  },
+  "formation": {
+  },
+  "addons": [
+    "jawsdb"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/java"
+    }
+  ]
+}
