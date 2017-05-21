@@ -2,8 +2,6 @@
 SoundsUpAPI is a Java based RESTful Service (JAX-RS) implemented with Jersey. 
 The API serves a social media platform called SoundsUp and has useful endpoints for managing collections such as users, posts and comments.
 
-
-
 ## Workstation setup
 
 ### Prerequisites
@@ -39,6 +37,15 @@ No previous steps to install Tomcat are required when using Webapp Runner.
 
 
 That's it. Your application should start up on `localhost:8080`
+
+### Generate documentation
+To generate documentation use `apidoc` command. 
+
+    
+    $ apidoc -i src/main/java -o src/main/webapp
+    
+>Note: Instructions for the tool can be founds here http://apidocjs.com/
+
 
 ### Deploy to Heroku
 To deploy the app we simply need to push our changes to master.     
