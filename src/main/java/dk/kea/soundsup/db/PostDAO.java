@@ -43,7 +43,12 @@ public class PostDAO {
 
     }
 
-    public static List<Post> selectAllPosts() {
+    /**
+     * This method selects all posts from the database
+     *
+     * @return List of posts inside the database or and empty list if there are no existing entries.
+     */
+    public static List<Post> getAllPosts() {
         List<Post> posts = new ArrayList<>();
 
         try (Connection connection = Database.getConnection()) {
@@ -63,37 +68,7 @@ public class PostDAO {
             ResultSet resultSet = statement.executeQuery(sql);
 
             while (resultSet.next()) {
-                // Author details
-                int userId = resultSet.getInt("user_id");
-                String userName = resultSet.getString("user_name");
-                String userEmail = resultSet.getString("email");
-                User user = new User(userId, userName, userEmail);
-
-                // Album
-                String albumId = resultSet.getString("album_id");
-                String albumName = resultSet.getString("album_name");
-                String albumImageUrl = resultSet.getString("album_image_url");
-                Album album = new Album(albumId, albumName, albumImageUrl);
-
-                // Artist
-                String artistId = resultSet.getString("artist_id");
-                String artistName = resultSet.getString("artist_name");
-                Artist artist = new Artist(artistId, artistName);
-
-                // Track details
-                int trackId = resultSet.getInt("track_id");
-                String trackIdSpotify = resultSet.getString("track_id_spotify");
-                String trackName = resultSet.getString("track_name");
-                String previewUrl = resultSet.getString("preview_url");
-                ExternalUrls externalUrlSpotify = new ExternalUrls(resultSet.getString("external_url_spotify"));
-
-                Track track = new Track(trackId, trackIdSpotify, trackName, previewUrl, album, artist, externalUrlSpotify);
-
-                // Post details
-                int postId = resultSet.getInt("post_id");
-                String description = resultSet.getString("description");
-
-                Post post = new Post(postId, description, user, track);
+                Post post = PostDAO.getPostFromResultSet(resultSet);
                 posts.add(post);
             }
 
@@ -108,4 +83,76 @@ public class PostDAO {
 
     }
 
+    /**
+     * This method selects a post from the database corresponding to the given parameter
+     *
+     * @param postId the unique identifier of the post
+     * @return a post object
+     */
+    public static Post getPostById(int postId) {
+        try (Connection connection = Database.getConnection()) {
+
+            String sql = "SELECT post_id, description, " +
+                    "user.user_id AS user_id, user.name AS user_name, email, " +
+                    "track.track_id AS track_id, track_id_spotify, track.name AS track_name, " +
+                    "preview_url, " +
+                    "album_id, album_image_url, album_name, " +
+                    "artist_id, artist_name, " +
+                    "external_url_spotify " +
+                    "FROM post, user, track " +
+                    "WHERE post.track_id = track.track_id " +
+                    "AND `post_id` = ? " +
+                    "AND post.user_id = user.user_id";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, postId);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                return PostDAO.getPostFromResultSet(resultSet);
+            }
+
+            Database.closeConnection(connection);
+
+        } catch (SQLException | URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    private static Post getPostFromResultSet(ResultSet resultSet) throws SQLException {
+        // Author details
+        int userId = resultSet.getInt("user_id");
+        String userName = resultSet.getString("user_name");
+        String userEmail = resultSet.getString("email");
+        User user = new User(userId, userName, userEmail);
+
+        // Album
+        String albumId = resultSet.getString("album_id");
+        String albumName = resultSet.getString("album_name");
+        String albumImageUrl = resultSet.getString("album_image_url");
+        Album album = new Album(albumId, albumName, albumImageUrl);
+
+        // Artist
+        String artistId = resultSet.getString("artist_id");
+        String artistName = resultSet.getString("artist_name");
+        Artist artist = new Artist(artistId, artistName);
+
+        // Track details
+        int trackId = resultSet.getInt("track_id");
+        String trackIdSpotify = resultSet.getString("track_id_spotify");
+        String trackName = resultSet.getString("track_name");
+        String previewUrl = resultSet.getString("preview_url");
+        ExternalUrls externalUrlSpotify = new ExternalUrls(resultSet.getString("external_url_spotify"));
+
+        Track track = new Track(trackId, trackIdSpotify, trackName, previewUrl, album, artist, externalUrlSpotify);
+
+        // Post details
+        int postId = resultSet.getInt("post_id");
+        String description = resultSet.getString("description");
+
+        return new Post(postId, description, user, track);
+    }
 }
