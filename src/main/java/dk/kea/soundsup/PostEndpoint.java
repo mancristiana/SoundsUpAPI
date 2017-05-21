@@ -62,7 +62,6 @@ public class PostEndpoint {
      * @apiError (Error 4xx) 400 Bad request
      * @apiError (Error 5xx) 500 Server has encountered a problem
      */
-
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public List<Post> getAllPosts() {
@@ -84,7 +83,6 @@ public class PostEndpoint {
      * @apiError (Error 4xx) 404 Post not found
      * @apiError (Error 5xx) 500 Server has encountered a problem
      */
-
     @GET
     @Path("/{id}")
     @Produces({MediaType.APPLICATION_JSON})
@@ -92,8 +90,6 @@ public class PostEndpoint {
         Post post = PostDAO.getPostById(id);
         return post;
     }
-
-
 
     /**
      * @api {post} /posts Create Post
@@ -149,18 +145,16 @@ public class PostEndpoint {
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
     public Response createPost(Post post) {
-        ResponseMessage responseMessage = new ResponseMessage();
+        ResponseMessage responseMessage;
 
         int trackId = TrackDAO.insertTrack(post.getTrack());
         post.getTrack().setId(trackId);
         int postId = PostDAO.insertPost(post);
         if (trackId == -1 || postId == -1) {
-            responseMessage.setStatus(400);
-            responseMessage.setMessage("An error occured while trying to process your request");
+            responseMessage = new ResponseMessage(400, "An error occured while trying to process your request");
         } else {
-            responseMessage.setStatus(201);
-            responseMessage.setMessage("Post with id = " + postId + " was sucessfully inserted.");
-    }
+            responseMessage = new ResponseMessage(201, "Post with id = " + postId + " was sucessfully inserted.");
+        }
 
         return Response
                 .status(responseMessage.getStatus())
@@ -168,4 +162,50 @@ public class PostEndpoint {
                 .build();
     }
 
+    /**
+     * @api {put} /posts/{id} Update Post
+     * @apiName UpdatePost
+     * @apiGroup Posts
+     * @apiVersion 0.0.1
+     *
+     * @apiDescription This request updates an existing post using the json body provided.
+     * @apiParam {string} id The id of the Post
+     * @apiParamExample {json} Edit Post Description Example:
+     * {
+     *      "description" : "Edited description"
+     * }
+     *
+     * @apiSuccess (Success 2xx) 201 Post Edited
+     *
+     * @apiSuccessExample {json} Success-Response:
+     * HTTP/1.1 201 Created
+     * {
+     *      "status" : 201,
+     *      "message" : "Post was successfully edited"
+     * }
+     *
+     * @apiError 404 Post Not Found
+     * @apiError 400 Bad Request
+     * @apiError (Error 5xx) 500 Internal Server Error
+     *
+     */
+    @PUT
+    @Path("/{id}")
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response editPost(@PathParam("id") int id, Post post) {
+        ResponseMessage responseMessage;
+
+        post.setId(id);
+        if(PostDAO.updatePost(post)) {
+            responseMessage = new ResponseMessage(201, "Post was successfully edited");
+        } else {
+            responseMessage = new ResponseMessage(404, "Post not found");
+
+        }
+        return Response
+                .status(responseMessage.getStatus())
+                .entity(responseMessage)
+                .build();
+    }
 }

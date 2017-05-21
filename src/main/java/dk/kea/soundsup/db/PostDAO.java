@@ -19,6 +19,7 @@ public class PostDAO {
      * @return int representing the generated ID of the post. If an error occurs during the database insertion, the method returns -1
      */
     public static int insertPost(Post post) {
+        int postId = -1;
         try (Connection connection = Database.getConnection()) {
 
             String sql = "INSERT INTO `post` (`description`, `user_id`, `track_id`) VALUES (?, ?, ?)";
@@ -31,7 +32,7 @@ public class PostDAO {
             statement.executeUpdate();
             ResultSet rs = statement.getGeneratedKeys();
             if (rs.next()) {
-                return rs.getInt(1);
+                postId = rs.getInt(1);
             }
 
             Database.closeConnection(connection);
@@ -39,7 +40,7 @@ public class PostDAO {
             e.printStackTrace();
         }
 
-        return -1;
+        return postId;
 
     }
 
@@ -90,6 +91,7 @@ public class PostDAO {
      * @return a post object
      */
     public static Post getPostById(int postId) {
+        Post post = null;
         try (Connection connection = Database.getConnection()) {
 
             String sql = "SELECT post_id, description, " +
@@ -110,7 +112,7 @@ public class PostDAO {
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                return PostDAO.getPostFromResultSet(resultSet);
+                post = PostDAO.getPostFromResultSet(resultSet);
             }
 
             Database.closeConnection(connection);
@@ -119,7 +121,33 @@ public class PostDAO {
             e.printStackTrace();
         }
 
-        return null;
+        return post;
+    }
+
+    /**
+     * This method updated the description of a post using the post id passed through the post object
+     * @param post Post object containing id and description of the post to be updated
+     * @return boolean representing whether the entry was updated successfully or not
+     */
+    public static boolean updatePost(Post post) {
+        boolean isUpdated = false;
+        try (Connection connection = Database.getConnection()) {
+
+            String sql = " UPDATE `post` SET `description`= ? WHERE `post_id`= ?;";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, post.getDescription());
+            statement.setInt(2, post.getId());
+
+            isUpdated = statement.executeUpdate() > 0;
+
+            Database.closeConnection(connection);
+        } catch (SQLException | URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        return isUpdated;
+
     }
 
     private static Post getPostFromResultSet(ResultSet resultSet) throws SQLException {
