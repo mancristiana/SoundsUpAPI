@@ -6,6 +6,10 @@ package dk.kea.soundsup.model;
 public class ExternalUrls {
     private String spotify;
 
+    public ExternalUrls() {
+
+    }
+
     public ExternalUrls(String spotify) {
         this.spotify = spotify;
     }
