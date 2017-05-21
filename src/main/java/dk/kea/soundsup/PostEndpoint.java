@@ -63,13 +63,11 @@ public class PostEndpoint {
      * @apiError (Error 5xx) 500 Server has encountered a problem
      */
 
-
-
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public List<Post> getAllPosts() {
 
-        return PostDAO.selectAllPosts();
+        return PostDAO.getAllPosts();
     }
 
     /**
@@ -77,18 +75,11 @@ public class PostEndpoint {
      * @apiName GetPost
      * @apiGroup Post
      * @apiVersion 0.0.1
-     * @apiParam {Number} id Unique post identifier
+     * @apiDescription This request returns the post with the specified id
      * @apiSuccess {Number} post_id Unique post identifier
-     * @apiSuccess {Number} user_id Unique user identifier generated on sign up.
-     * @apiSuccess {String} track_id Unique identifier for the track corresponding to Spotify API Database.
      * @apiSuccess {String} description Content of the post
-     * @apiSuccessExample Success-Response:
-     * {
-     * "post_id": 3,
-     * "user_id": 1,
-     * "track_id": "someIdb436427463mnj4n6k42l",
-     * "description": "OMG This song is amazing!"
-     * }
+     * @apiSuccess {User} user object representing the post author. Please refer to the user enpoint for the structure of the user.
+     * @apiSuccess {Track} track object shared within the post
      * @apiError (Error 4xx) 400 Bad request
      * @apiError (Error 4xx) 404 Post not found
      * @apiError (Error 5xx) 500 Server has encountered a problem
@@ -98,8 +89,8 @@ public class PostEndpoint {
     @Path("/{id}")
     @Produces({MediaType.APPLICATION_JSON})
     public Post getPostById(@PathParam("id") int id) {
-        List<Post> posts = getAllPosts();
-        return posts.get(id); // TODO CORRECT IMPLEMENTATION
+        Post post = PostDAO.getPostById(id);
+        return post;
     }
 
     @POST
@@ -118,7 +109,6 @@ public class PostEndpoint {
             responseMessage.setStatus(200);
             responseMessage.setMessage("Post with id = " + postId + " was sucessfully inserted.");
         }
-
 
         return Response
                 .status(responseMessage.getStatus())
