@@ -20,7 +20,7 @@ public class PostEndpoint {
      * @api {get} /posts Get all posts
      * @apiName GetAllPosts
      * @apiGroup Posts
-     * @apiVersion 0.0.1
+     * @apiVersion 1.0.0
      * @apiDescription This request returns a list of all posts in the database
      * @apiSuccess {Number} post_id Unique post identifier
      * @apiSuccess {String} description Content of the post
@@ -73,7 +73,7 @@ public class PostEndpoint {
      * @api {get} /posts/{id} Get post
      * @apiName GetPost
      * @apiGroup Posts
-     * @apiVersion 0.0.1
+     * @apiVersion 1.0.0
      * @apiDescription This request returns the post with the specified id
      * @apiSuccess {Number} post_id Unique post identifier
      * @apiSuccess {String} description Content of the post
@@ -95,7 +95,7 @@ public class PostEndpoint {
      * @api {post} /posts Create Post
      * @apiName CreatePost
      * @apiGroup Posts
-     * @apiVersion 0.0.1
+     * @apiVersion 1.0.0
      *
      * @apiDescription This request creates a new post by using the json body provided. For consistency the json should include the parameters specified below. A postId field is generated automatically and returned in the response once the post has been saved.
      *
@@ -166,7 +166,7 @@ public class PostEndpoint {
      * @api {put} /posts/{id} Update Post
      * @apiName UpdatePost
      * @apiGroup Posts
-     * @apiVersion 0.0.1
+     * @apiVersion 1.0.0
      *
      * @apiDescription This request updates an existing post using the json body provided.
      * @apiParam {string} id The id of the Post
@@ -213,7 +213,7 @@ public class PostEndpoint {
      * @api {delete} /post/{id} Delete Post
      * @apiName DeletePost
      * @apiGroup Posts
-     * @apiVersion 0.0.1
+     * @apiVersion 1.0.0
      *
      * @apiDescription This request deletes an existing post with the id specified in the request URL.
      * @apiParam {string} id The id of the Post

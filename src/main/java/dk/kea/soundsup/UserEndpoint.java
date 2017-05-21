@@ -18,7 +18,7 @@ public class UserEndpoint {
      * @api {get} /users Get all users
      * @apiName GetAllUsers
      * @apiGroup User
-     * @apiVersion 0.0.1
+     * @apiVersion 1.0.0
      * @apiDescription This request returns a list of all users in the database
      * @apiSuccess {Number} id Unique user id generated on sign up.
      * @apiSuccess {String} name First and last name of the user.
@@ -59,7 +59,7 @@ public class UserEndpoint {
      * @api {get} /users/{id} Get user
      * @apiName getUserById
      * @apiGroup User
-     * @apiVersion 0.0.1
+     * @apiVersion 1.0.0
      * @apiParam {Number} id The unique ID of the user.
      * @apiSuccess {Number} id Unique user id generated on sign up.
      * @apiSuccess {String} name First and last name of the user.

@@ -5,7 +5,7 @@ define({ "api": [
     "title": "Create Post",
     "name": "CreatePost",
     "group": "Posts",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "description": "<p>This request creates a new post by using the json body provided. For consistency the json should include the parameters specified below. A postId field is generated automatically and returned in the response once the post has been saved.</p>",
     "parameter": {
       "fields": {
@@ -89,7 +89,7 @@ define({ "api": [
     "title": "Delete Post",
     "name": "DeletePost",
     "group": "Posts",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "description": "<p>This request deletes an existing post with the id specified in the request URL.</p>",
     "parameter": {
       "fields": {
@@ -158,7 +158,7 @@ define({ "api": [
     "title": "Get all posts",
     "name": "GetAllPosts",
     "group": "Posts",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "description": "<p>This request returns a list of all posts in the database</p>",
     "success": {
       "fields": {
@@ -230,7 +230,7 @@ define({ "api": [
     "title": "Get post",
     "name": "GetPost",
     "group": "Posts",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "description": "<p>This request returns the post with the specified id</p>",
     "success": {
       "fields": {
@@ -301,7 +301,7 @@ define({ "api": [
     "title": "Update Post",
     "name": "UpdatePost",
     "group": "Posts",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "description": "<p>This request updates an existing post using the json body provided.</p>",
     "parameter": {
       "fields": {
@@ -377,7 +377,7 @@ define({ "api": [
     "title": "Get all users",
     "name": "GetAllUsers",
     "group": "User",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "description": "<p>This request returns a list of all users in the database</p>",
     "success": {
       "fields": {
@@ -431,7 +431,7 @@ define({ "api": [
     "title": "Get user",
     "name": "getUserById",
     "group": "User",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "parameter": {
       "fields": {
         "Parameter": [
