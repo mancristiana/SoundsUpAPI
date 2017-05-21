@@ -7,6 +7,10 @@ public class Artist {
     private String id;
     private String name;
 
+    public Artist() {
+
+    }
+
     public Artist(String id, String name) {
         this.id = id;
         this.name = name;

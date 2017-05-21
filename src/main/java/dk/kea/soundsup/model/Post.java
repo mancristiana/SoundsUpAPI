@@ -9,6 +9,9 @@ public class Post {
     private User user;
     private Track track;
 
+    public Post() {
+    }
+
     public Post(int id, String description, User user, Track track) {
         this.id = id;
         this.description = description;
