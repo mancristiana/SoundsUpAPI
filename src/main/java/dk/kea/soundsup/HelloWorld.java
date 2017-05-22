@@ -1,5 +1,9 @@
 package dk.kea.soundsup;
 
+import dk.kea.soundsup.services.geoipservice.GeoIP;
+import dk.kea.soundsup.services.geoipservice.GeoIPService;
+import dk.kea.soundsup.services.geoipservice.GeoIPServiceSoap;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -16,8 +20,16 @@ public class HelloWorld {
 
     @Produces(MediaType.TEXT_PLAIN)
     public String getMessage(@Context HttpServletRequest request) {
-        String addr = request.getRemoteAddr();
-        String host = request.getRemoteHost();
-        return "Hello world!" + addr + " " + host;
+//        String ipAddress = request.getRemoteAddr();
+        String ipAddress = "83.93.37.233";
+
+        GeoIPService geoIPService = new GeoIPService();
+        GeoIPServiceSoap geoIPServiceSoap = geoIPService.getGeoIPServiceSoap();
+        GeoIP geoIP = geoIPServiceSoap.getGeoIP(ipAddress);
+
+        String countryName = geoIP.getCountryName();
+        String countryCode = geoIP.getCountryCode();
+
+        return "Hello world!" + countryName + " " + countryCode;
     }
 }
