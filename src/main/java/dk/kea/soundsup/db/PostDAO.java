@@ -63,7 +63,8 @@ public class PostDAO {
                     "external_url_spotify " +
                     "FROM post, user, track " +
                     "WHERE post.track_id = track.track_id " +
-                    "AND post.user_id = user.user_id";
+                    "AND post.user_id = user.user_id " +
+                    "ORDER BY date DESC";
 
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
