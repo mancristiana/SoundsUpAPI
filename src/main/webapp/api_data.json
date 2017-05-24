@@ -1,11 +1,164 @@
 [
   {
+    "type": "post",
+    "url": "/posts",
+    "title": "Create Post",
+    "name": "CreatePost",
+    "group": "Posts",
+    "version": "1.0.0",
+    "description": "<p>This request creates a new post by using the json body provided. For consistency the json should include the parameters specified below. A postId field is generated automatically and returned in the response once the post has been saved.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "description",
+            "description": "<p>Content of the post</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "User",
+            "optional": false,
+            "field": "user",
+            "description": "<p>object representing the post author. Please refer to the user endpoint for the structure of the user.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Track",
+            "optional": false,
+            "field": "track",
+            "description": "<p>object shared within the post</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Post Example",
+          "content": "{\n    \"id\": 0,\n    \"description\": \"This is a description example!\",\n    \"user\": {\n        \"id\": 3\n    },\n    \"track\": {\n        \"spotifyId\": \"5anCkDvJ17aznvK5TED5uo\",\n        \"name\": \"Hail to the King\",\n        \"previewUrl\": \"https://p.scdn.co/mp3-preview/7a8932458d8ea00a425b629f43c4d44af0c9a029?cid=null\",\n        \"album\": {\n            \"id\": \"0ks45m1bsP2JsZpM5D2FFA\",\n            \"name\": \"Hail to the King\",\n            \"imageUrl\": \"https://i.scdn.co/image/d6fef16190f1516d0efe91c0d1bc6f28d8aa8865\"\n        },\n        \"artist\": {\n            \"id\": \"0ks45m1bsP2JsZpM5D2FFA\",\n            \"name\": \"Avenged Sevenfold\"\n        },\n        \"externalUrls\": {\n            \"spotify\": \"https://open.spotify.com/album/0ks45m1bsP2JsZpM5D2FFA\"\n        }\n    }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Success 2xx": [
+          {
+            "group": "Success 2xx",
+            "optional": false,
+            "field": "201",
+            "description": "<p>Post Created</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success Response",
+          "content": "HTTP/1.1 201 Created\n{\n  \"status\": 201,\n  \"message\": \"Post with id = {id} was sucessfully inserted.\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "400",
+            "description": "<p>Bad Request</p>"
+          }
+        ],
+        "Error 5xx": [
+          {
+            "group": "Error 5xx",
+            "optional": false,
+            "field": "500",
+            "description": "<p>Internal Server Error</p>"
+          }
+        ]
+      }
+    },
+    "filename": "src/main/java/dk/kea/soundsup/PostEndpoint.java",
+    "groupTitle": "Posts"
+  },
+  {
+    "type": "delete",
+    "url": "/post/{id}",
+    "title": "Delete Post",
+    "name": "DeletePost",
+    "group": "Posts",
+    "version": "1.0.0",
+    "description": "<p>This request deletes an existing post with the id specified in the request URL.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The id of the Post</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 2xx": [
+          {
+            "group": "Success 2xx",
+            "optional": false,
+            "field": "202",
+            "description": "<p>Accepted</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 202 Accepted\n{\n     \"status\" : 202,\n     \"message\" : \"Post was successfully deleted\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "404",
+            "description": "<p>Post Not Found</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "400",
+            "description": "<p>Bad Request</p>"
+          }
+        ],
+        "Error 5xx": [
+          {
+            "group": "Error 5xx",
+            "optional": false,
+            "field": "500",
+            "description": "<p>Internal Server Error</p>"
+          }
+        ]
+      }
+    },
+    "filename": "src/main/java/dk/kea/soundsup/PostEndpoint.java",
+    "groupTitle": "Posts"
+  },
+  {
     "type": "get",
     "url": "/posts",
     "title": "Get all posts",
     "name": "GetAllPosts",
-    "group": "Post",
-    "version": "0.0.1",
+    "group": "Posts",
+    "version": "1.0.0",
     "description": "<p>This request returns a list of all posts in the database</p>",
     "success": {
       "fields": {
@@ -19,31 +172,31 @@
           },
           {
             "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "user_id",
-            "description": "<p>Unique user identifier generated on sign up.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "track_id",
-            "description": "<p>Unique identifier for the track corresponding to Spotify API Database.</p>"
-          },
-          {
-            "group": "Success 200",
             "type": "String",
             "optional": false,
             "field": "description",
             "description": "<p>Content of the post</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "User",
+            "optional": false,
+            "field": "user",
+            "description": "<p>object representing the post author. Please refer to the user endpoint for the structure of the user.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Track",
+            "optional": false,
+            "field": "track",
+            "description": "<p>object shared within the post</p>"
           }
         ]
       },
       "examples": [
         {
-          "title": "Success Response",
-          "content": "HTTP/1.1 200 OK\n[\n   {\n       \"postId\": 0,\n       \"userId\": 23,\n       \"trackId\": \"2eOn7OyFJ8ygzBrWGirpsB\",\n       \"description\": \"Some song\"\n   },\n   {\n       \"postId\": 1,\n       \"userId\": 32,\n       \"trackId\": \"1e2GBOtPyLu7iuNm4EvFKG\",\n       \"description\": \"Another description\"\n   },\n   {\n       \"postId\": 2,\n       \"userId\": 11,\n       \"trackId\": \"1zRFuPnqjBckEoOFliJyaI\",\n       \"description\": \"Such wow\"\n   },\n   {\n       \"postId\": 3,\n       \"userId\": 11,\n       \"trackId\": \"27HNh1cyB39ERqdpSjM2i1\",\n       \"description\": \"Amazing\"\n   }\n]",
+          "title": "SuccessResponse",
+          "content": "HTTP/1.1 200 OK\n[\n     {\n         \"id\": 0,\n         \"description\": \"Wow amazing song\",\n         \"user\": {\n             \"id\": 3,\n             \"name\": \"Andrei\",\n             \"email\": \"and@man.com\"\n         },\n         \"track\": {\n             \"id\": 1,\n             \"spotifyId\": \"5anCkDvJ17aznvK5TED5uo\",\n             \"name\": \"Hail to the King\",\n             \"previewUrl\": \"https://p.scdn.co/mp3-preview/7a8932458d8ea00a425b629f43c4d44af0c9a029?cid=null\",\n             \"album\": {\n                 \"id\": \"0ks45m1bsP2JsZpM5D2FFA\",\n                 \"name\": \"Hail to the King\",\n                 \"imageUrl\": \"https://i.scdn.co/image/d6fef16190f1516d0efe91c0d1bc6f28d8aa8865\"\n             },\n             \"artist\": {\n                 \"id\": \"0ks45m1bsP2JsZpM5D2FFA\",\n                 \"name\": \"Avenged Sevenfold\"\n             },\n             \"externalUrls\": {\n                 \"spotify\": \"https://open.spotify.com/album/0ks45m1bsP2JsZpM5D2FFA\"\n             }\n         }\n    },\n    ...\n]",
           "type": "json"
         }
       ]
@@ -69,28 +222,16 @@
       }
     },
     "filename": "src/main/java/dk/kea/soundsup/PostEndpoint.java",
-    "groupTitle": "Post"
+    "groupTitle": "Posts"
   },
   {
     "type": "get",
     "url": "/posts/{id}",
     "title": "Get post",
     "name": "GetPost",
-    "group": "Post",
-    "version": "0.0.1",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "Number",
-            "optional": false,
-            "field": "id",
-            "description": "<p>Unique post identifier</p>"
-          }
-        ]
-      }
-    },
+    "group": "Posts",
+    "version": "1.0.0",
+    "description": "<p>This request returns the post with the specified id</p>",
     "success": {
       "fields": {
         "Success 200": [
@@ -103,34 +244,27 @@
           },
           {
             "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "user_id",
-            "description": "<p>Unique user identifier generated on sign up.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "track_id",
-            "description": "<p>Unique identifier for the track corresponding to Spotify API Database.</p>"
-          },
-          {
-            "group": "Success 200",
             "type": "String",
             "optional": false,
             "field": "description",
             "description": "<p>Content of the post</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "User",
+            "optional": false,
+            "field": "user",
+            "description": "<p>object representing the post author. Please refer to the user enpoint for the structure of the user.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Track",
+            "optional": false,
+            "field": "track",
+            "description": "<p>object shared within the post</p>"
           }
         ]
-      },
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "{\n    \"post_id\": 3,\n    \"user_id\": 1,\n    \"track_id\": \"someIdb436427463mnj4n6k42l\",\n    \"description\": \"OMG This song is amazing!\"\n}",
-          "type": "json"
-        }
-      ]
+      }
     },
     "error": {
       "fields": {
@@ -159,7 +293,83 @@
       }
     },
     "filename": "src/main/java/dk/kea/soundsup/PostEndpoint.java",
-    "groupTitle": "Post"
+    "groupTitle": "Posts"
+  },
+  {
+    "type": "put",
+    "url": "/posts/{id}",
+    "title": "Update Post",
+    "name": "UpdatePost",
+    "group": "Posts",
+    "version": "1.0.0",
+    "description": "<p>This request updates an existing post using the json body provided.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The id of the Post</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Edit Post Description Example:",
+          "content": "{\n     \"description\" : \"Edited description\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Success 2xx": [
+          {
+            "group": "Success 2xx",
+            "optional": false,
+            "field": "201",
+            "description": "<p>Post Edited</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 201 Edited\n{\n     \"status\" : 201,\n     \"message\" : \"Post was successfully edited\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "404",
+            "description": "<p>Post Not Found</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "400",
+            "description": "<p>Bad Request</p>"
+          }
+        ],
+        "Error 5xx": [
+          {
+            "group": "Error 5xx",
+            "optional": false,
+            "field": "500",
+            "description": "<p>Internal Server Error</p>"
+          }
+        ]
+      }
+    },
+    "filename": "src/main/java/dk/kea/soundsup/PostEndpoint.java",
+    "groupTitle": "Posts"
   },
   {
     "type": "get",
@@ -167,7 +377,7 @@
     "title": "Get all users",
     "name": "GetAllUsers",
     "group": "User",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "description": "<p>This request returns a list of all users in the database</p>",
     "success": {
       "fields": {
@@ -221,7 +431,7 @@
     "title": "Get user",
     "name": "getUserById",
     "group": "User",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "parameter": {
       "fields": {
         "Parameter": [

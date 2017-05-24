@@ -15,8 +15,21 @@ public class Track {
 
     private ExternalUrls externalUrls;
 
+    public Track() {
+
+    }
+
     public Track(int id, String spotifyId, String name, String previewUrl, Album album, Artist artist, ExternalUrls externalUrls) {
         this.id = id;
+        this.spotifyId = spotifyId;
+        this.name = name;
+        this.previewUrl = previewUrl;
+        this.album = album;
+        this.artist = artist;
+        this.externalUrls = externalUrls;
+    }
+
+    public Track(String spotifyId, String name, String previewUrl, Album album, Artist artist, ExternalUrls externalUrls) {
         this.spotifyId = spotifyId;
         this.name = name;
         this.previewUrl = previewUrl;

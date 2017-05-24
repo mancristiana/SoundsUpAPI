@@ -10,6 +10,10 @@ public class Album {
     private String name;
     private String imageUrl;
 
+    public Album() {
+
+    }
+
     public Album(String id, String name, String imageUrl) {
         this.id = id;
         this.name = name;
