@@ -1,6 +1,6 @@
 package dk.kea.soundsup.providers;
 
-import dk.kea.soundsup.model.ResponseMessage;
+import dk.kea.soundsup.entities.ResponseMessage;
 
 import javax.ws.rs.Produces;
 import javax.ws.rs.container.ContainerResponseFilter;

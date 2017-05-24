@@ -1,4 +1,4 @@
-package dk.kea.soundsup.model;
+package dk.kea.soundsup.entities;
 
 /**
  * Created by Andrei Atanasiu on 5/18/2017.

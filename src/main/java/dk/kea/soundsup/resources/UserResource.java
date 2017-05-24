@@ -1,4 +1,4 @@
-package dk.kea.soundsup;
+package dk.kea.soundsup.resources;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -16,12 +16,13 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import dk.kea.soundsup.model.GoogleToken;
-import dk.kea.soundsup.model.User;
+
+import dk.kea.soundsup.entities.GoogleToken;
+import dk.kea.soundsup.entities.User;
+
 
 @Path("/users")
-public class UserEndpoint
-{
+public class UserResource {
     HttpTransport httpTransport = new NetHttpTransport();
 
     JsonFactory jsonFactory = new JacksonFactory();
@@ -41,35 +42,28 @@ public class UserEndpoint
      * @apiSuccess {String} email The users email used for sign up.
      * @apiSuccessExample Success-Response:
      * {
-     *      "id": 0,
-     *      "name": "Cristiana Man",
-     *      "email": "cma@mail.com"
+     * "id": 0,
+     * "name": "Cristiana Man",
+     * "email": "cma@mail.com"
      * },
      * {
-     *      "id": 1,
-     *      "name": "Andrei Atanasiu",
-     *      "email": "aa@mail.dk"
+     * "id": 1,
+     * "name": "Andrei Atanasiu",
+     * "email": "aa@mail.dk"
      * }
      * @apiErrorExample Error-Response:
      * HTTP/1.1 400 Bad Request
      * {
-     *      "error": "User table not found"
+     * "error": "User table not found"
      * }
      */
 
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public List<User> getAllUsersDB() {
-        List<User> users = new ArrayList<User>();
-
-        users.add(new User(0, "Cristiana Man", "cma@mail.com"));
-        users.add(new User(1, "Adriel Premer", "adriel@site.com"));
-        users.add(new User(2, "Batman Man", "batman@super.org"));
-        users.add(new User(3, "Superman Man", "superman@super.org"));
-
-
-        return users;
+    public List<User> getAllUsers() {
+        return getAllUsersDB();
     }
+
 
     /**
      * @api {get} /users/{id} Get user
@@ -82,14 +76,14 @@ public class UserEndpoint
      * @apiSuccess {String} email The users email used for sign up.
      * @apiSuccessExample Success-Response:
      * {
-     *      "id": 3,
-     *      "name": "Bat Man",
-     *      "email": "batman@super.org";
+     * "id": 3,
+     * "name": "Bat Man",
+     * "email": "batman@super.org";
      * }
      * @apiErrorExample Error-Response:
      * HTTP/1.1 400 Bad Request
      * {
-     *      "error": "User not found"
+     * "error": "User not found"
      * }
      */
 
@@ -102,12 +96,23 @@ public class UserEndpoint
         return users.get(id);
     }
 
+    public List<User> getAllUsersDB() {
+        List<User> users = new ArrayList<User>();
+
+        users.add(new User(0, "Cristiana Man", "cma@mail.com"));
+        users.add(new User(1, "Adriel Premer", "adriel@site.com"));
+        users.add(new User(2, "Batman Man", "batman@super.org"));
+        users.add(new User(3, "Superman Man", "superman@super.org"));
+
+
+        return users;
+    }
+
     @POST
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getGoogleId(GoogleToken googleToken) throws GeneralSecurityException, IOException
-    {
+    public Response getGoogleId(GoogleToken googleToken) throws GeneralSecurityException, IOException {
         String message = "";
         int status;
         System.out.println("inside post method . .");

@@ -1,6 +1,4 @@
-package dk.kea.soundsup.model;
-
-import java.util.List;
+package dk.kea.soundsup.entities;
 
 /**
  * Created by mancr on 17-May-17.
