@@ -43,6 +43,12 @@
             <version>${jersey2.version}</version>
         </dependency>
 
+        <dependency>
+        <groupId>com.google.api-client</groupId>
+        <artifactId>google-api-client</artifactId>
+        <version>1.22.0</version>
+        </dependency>
+
         <!-- Database -->
         <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
         <dependency>

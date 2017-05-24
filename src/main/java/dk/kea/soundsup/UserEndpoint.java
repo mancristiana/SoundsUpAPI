@@ -1,18 +1,34 @@
 package dk.kea.soundsup;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import dk.kea.soundsup.model.GoogleToken;
 import dk.kea.soundsup.model.User;
 
 @Path("/users")
-public class UserEndpoint {
+public class UserEndpoint
+{
+    HttpTransport httpTransport = new NetHttpTransport();
+
+    JsonFactory jsonFactory = new JacksonFactory();
+
+    GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(httpTransport, jsonFactory)
+            .setAudience(Collections.singletonList("176022414732-multinga95b6se0j9024vogb8t24rvge.apps.googleusercontent.com"))
+            .build();
 
     /**
      * @api {get} /users Get all users
@@ -86,5 +102,47 @@ public class UserEndpoint {
         return users.get(id);
     }
 
+    @POST
+    @Path("/")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getGoogleId(GoogleToken googleToken) throws GeneralSecurityException, IOException
+    {
+        String message = "";
+        int status;
+        System.out.println("inside post method . .");
+        GoogleIdToken idToken = verifier.verify(googleToken.getIdToken());
+        if (idToken != null) {
+            GoogleIdToken.Payload payload = idToken.getPayload();
 
+            // Print user identifier
+            String userId = payload.getSubject();
+            System.out.println("User ID: " + userId);
+
+            // Get profile information from payload
+            String email = payload.getEmail();
+            boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
+            String name = (String) payload.get("name");
+            String pictureUrl = (String) payload.get("picture");
+            String locale = (String) payload.get("locale");
+            String familyName = (String) payload.get("family_name");
+            String givenName = (String) payload.get("given_name");
+
+            // Use or store profile information
+            System.out.println("The id is good :D");
+
+            status = 201;
+            message = "Username" + name;
+
+        } else {
+            System.out.println("Invalid ID token.");
+            status = 406;
+            message = "Invalid ID token.";
+        }
+
+        return Response
+                .status(status)
+                .entity(googleToken)
+                .build();
+    }
 }
