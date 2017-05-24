@@ -1,4 +1,4 @@
-package dk.kea.soundsup;
+package dk.kea.soundsup.resources;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,10 +9,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import dk.kea.soundsup.model.User;
+import dk.kea.soundsup.entities.User;
 
 @Path("/users")
-public class UserEndpoint {
+public class UserResource {
 
     /**
      * @api {get} /users Get all users
@@ -43,17 +43,11 @@ public class UserEndpoint {
 
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public List<User> getAllUsersDB() {
-        List<User> users = new ArrayList<User>();
-
-        users.add(new User(0, "Cristiana Man", "cma@mail.com"));
-        users.add(new User(1, "Adriel Premer", "adriel@site.com"));
-        users.add(new User(2, "Batman Man", "batman@super.org"));
-        users.add(new User(3, "Superman Man", "superman@super.org"));
-
-
-        return users;
+    public List<User> getAllUsers() {
+        return getAllUsersDB();
     }
+
+
 
     /**
      * @api {get} /users/{id} Get user
@@ -84,6 +78,18 @@ public class UserEndpoint {
         List<User> users = getAllUsersDB();
 
         return users.get(id);
+    }
+
+    public List<User> getAllUsersDB() {
+        List<User> users = new ArrayList<User>();
+
+        users.add(new User(0, "Cristiana Man", "cma@mail.com"));
+        users.add(new User(1, "Adriel Premer", "adriel@site.com"));
+        users.add(new User(2, "Batman Man", "batman@super.org"));
+        users.add(new User(3, "Superman Man", "superman@super.org"));
+
+
+        return users;
     }
 
 

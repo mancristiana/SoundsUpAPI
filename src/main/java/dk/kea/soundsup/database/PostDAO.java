@@ -1,6 +1,6 @@
-package dk.kea.soundsup.db;
+package dk.kea.soundsup.database;
 
-import dk.kea.soundsup.model.*;
+import dk.kea.soundsup.entities.*;
 
 import java.net.URISyntaxException;
 import java.sql.*;

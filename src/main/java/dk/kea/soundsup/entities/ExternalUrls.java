@@ -1,4 +1,4 @@
-package dk.kea.soundsup.model;
+package dk.kea.soundsup.entities;
 
 /**
  * Created by mancr on 17-May-17.
