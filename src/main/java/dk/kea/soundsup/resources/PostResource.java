@@ -1,9 +1,9 @@
-package dk.kea.soundsup;
+package dk.kea.soundsup.resources;
 
-import dk.kea.soundsup.db.PostDAO;
-import dk.kea.soundsup.db.TrackDAO;
-import dk.kea.soundsup.model.Post;
-import dk.kea.soundsup.model.ResponseMessage;
+import dk.kea.soundsup.database.PostDAO;
+import dk.kea.soundsup.database.TrackDAO;
+import dk.kea.soundsup.entities.Post;
+import dk.kea.soundsup.entities.ResponseMessage;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
@@ -14,7 +14,7 @@ import java.util.*;
  */
 
 @Path("/posts")
-public class PostEndpoint {
+public class PostResource {
 
     /**
      * @api {get} /posts Get all posts

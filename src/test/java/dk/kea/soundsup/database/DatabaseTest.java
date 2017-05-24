@@ -1,4 +1,4 @@
-package dk.kea.soundsup.db;
+package dk.kea.soundsup.database;
 
 /**
  * Created by mancr on 17-May-17.
