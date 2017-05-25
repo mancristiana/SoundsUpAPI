@@ -1,15 +1,32 @@
 package dk.kea.soundsup.resources;
 
+import dk.kea.soundsup.database.PostDAO;
 import dk.kea.soundsup.entities.Post;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
 
+import org.glassfish.jersey.test.TestProperties;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.JUnitCore;
+import org.junit.runner.Result;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+
 
 import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
+import java.util.LinkedList;
+
 
 /**
  * Created by mancr on 24-May-17.
@@ -17,11 +34,25 @@ import javax.ws.rs.core.MediaType;
 
 public class PostResourceTest extends JerseyTest {
 
+    @Override
+    protected Application configure() {
+        enable(TestProperties.LOG_TRAFFIC);
+        return new ResourceConfig(PostResource.class);
+    }
+
     @Ignore
     @Test
     public void postsPathParamTest() {
         String response = target("posts/453").request().get(String.class);
 //        Assert.assertTrue(453 == .equals(response));
+    }
+
+    @Test
+    public void getAllPostsTest()
+    {
+        PostResource mockPostResource = mock(PostResource.class);
+        assertNotNull(mockPostResource.getAllPosts());
+        //verify(mockPostResource, times(1)).getAllPosts();
     }
 
     @Ignore
