@@ -17,7 +17,7 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
-import dk.kea.soundsup.entities.GoogleToken;
+import dk.kea.soundsup.entities.Token;
 import dk.kea.soundsup.entities.User;
 
 
@@ -112,7 +112,7 @@ public class UserResource {
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getGoogleId(GoogleToken googleToken) throws GeneralSecurityException, IOException {
+    public Response getGoogleId(Token googleToken) throws GeneralSecurityException, IOException {
         String message = "";
         int status;
         System.out.println("inside post method . .");

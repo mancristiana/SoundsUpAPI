@@ -53,10 +53,17 @@
             <version>${jersey2.version}</version>
         </dependency>
 
+        <!-- Google -->
         <dependency>
             <groupId>com.google.api-client</groupId>
             <artifactId>google-api-client</artifactId>
             <version>1.22.0</version>
+        </dependency>
+        <!-- Spotify  -->
+        <dependency>
+            <groupId>se.michaelthelin.spotify</groupId>
+            <artifactId>spotify-web-api-java</artifactId>
+            <version>1.5.0</version>
         </dependency>
 
         <!-- Database -->
