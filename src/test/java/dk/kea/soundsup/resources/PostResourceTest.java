@@ -55,6 +55,13 @@ public class PostResourceTest extends JerseyTest {
         //verify(mockPostResource, times(1)).getAllPosts();
     }
 
+    @Test
+    public void getPostByIdTest()
+    {
+        PostResource mockPostResource = mock(PostResource.class);
+        assertNull(mockPostResource.getPostById(1));
+    }
+
     @Ignore
     @Test
     public void createPostTest() {
