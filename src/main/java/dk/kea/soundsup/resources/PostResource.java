@@ -22,7 +22,7 @@ public class PostResource {
      * @apiGroup Posts
      * @apiVersion 1.0.0
      * @apiDescription This request returns a list of all posts in the database
-     * @apiSuccess {Number} post_id Unique post identifier
+     * @apiSuccess {Number} id Unique post identifier
      * @apiSuccess {String} description Content of the post
      * @apiSuccess {User} user object representing the post author. Please refer to the user endpoint for the structure of the user.
      * @apiSuccess {Track} track object shared within the post
@@ -75,7 +75,7 @@ public class PostResource {
      * @apiGroup Posts
      * @apiVersion 1.0.0
      * @apiDescription This request returns the post with the specified id
-     * @apiSuccess {Number} post_id Unique post identifier
+     * @apiSuccess {Number} id Unique post identifier
      * @apiSuccess {String} description Content of the post
      * @apiSuccess {User} user object representing the post author. Please refer to the user enpoint for the structure of the user.
      * @apiSuccess {Track} track object shared within the post
@@ -105,7 +105,6 @@ public class PostResource {
      *
      * @apiParamExample {json} Post Example
      * {
-     *     "id": 0,
      *     "description": "This is a description example!",
      *     "user": {
      *         "id": 3

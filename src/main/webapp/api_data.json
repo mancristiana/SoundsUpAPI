@@ -1,5 +1,45 @@
 [
   {
+    "type": "get",
+    "url": "/hello/country",
+    "title": "Get Geo IP",
+    "name": "GetGeoIp",
+    "group": "Hello",
+    "version": "1.0.0",
+    "description": "<p>This endpoint returns a GeoIp object containing the country name and code determined from the IP Address of the client.</p>",
+    "success": {
+      "examples": [
+        {
+          "title": "SuccessResponse",
+          "content": "HTTP/1.1 200 OK\n{\n     \"returnCode\": 1,\n     \"ip\": \"83.93.37.233\",\n     \"returnCodeDetails\": \"Success\",\n     \"countryName\": \"Denmark\",\n     \"countryCode\": \"DNK\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "src/main/java/dk/kea/soundsup/resources/HelloResource.java",
+    "groupTitle": "Hello"
+  },
+  {
+    "type": "get",
+    "url": "/hello",
+    "title": "Get Hello World",
+    "name": "GetHelloWorld",
+    "group": "Hello",
+    "version": "1.0.0",
+    "description": "<p>This request returns a plain text hello message. This endpoint is useful for verifying that the API works.</p>",
+    "success": {
+      "examples": [
+        {
+          "title": "SuccessResponse",
+          "content": "HTTP/1.1 200 OK\n\"Hello world!\"",
+          "type": "text/plain"
+        }
+      ]
+    },
+    "filename": "src/main/java/dk/kea/soundsup/resources/HelloResource.java",
+    "groupTitle": "Hello"
+  },
+  {
     "type": "post",
     "url": "/posts",
     "title": "Create Post",
@@ -36,7 +76,7 @@
       "examples": [
         {
           "title": "Post Example",
-          "content": "{\n    \"id\": 0,\n    \"description\": \"This is a description example!\",\n    \"user\": {\n        \"id\": 3\n    },\n    \"track\": {\n        \"spotifyId\": \"5anCkDvJ17aznvK5TED5uo\",\n        \"name\": \"Hail to the King\",\n        \"previewUrl\": \"https://p.scdn.co/mp3-preview/7a8932458d8ea00a425b629f43c4d44af0c9a029?cid=null\",\n        \"album\": {\n            \"id\": \"0ks45m1bsP2JsZpM5D2FFA\",\n            \"name\": \"Hail to the King\",\n            \"imageUrl\": \"https://i.scdn.co/image/d6fef16190f1516d0efe91c0d1bc6f28d8aa8865\"\n        },\n        \"artist\": {\n            \"id\": \"0ks45m1bsP2JsZpM5D2FFA\",\n            \"name\": \"Avenged Sevenfold\"\n        },\n        \"externalUrls\": {\n            \"spotify\": \"https://open.spotify.com/album/0ks45m1bsP2JsZpM5D2FFA\"\n        }\n    }\n}",
+          "content": "{\n    \"description\": \"This is a description example!\",\n    \"user\": {\n        \"id\": 3\n    },\n    \"track\": {\n        \"spotifyId\": \"5anCkDvJ17aznvK5TED5uo\",\n        \"name\": \"Hail to the King\",\n        \"previewUrl\": \"https://p.scdn.co/mp3-preview/7a8932458d8ea00a425b629f43c4d44af0c9a029?cid=null\",\n        \"album\": {\n            \"id\": \"0ks45m1bsP2JsZpM5D2FFA\",\n            \"name\": \"Hail to the King\",\n            \"imageUrl\": \"https://i.scdn.co/image/d6fef16190f1516d0efe91c0d1bc6f28d8aa8865\"\n        },\n        \"artist\": {\n            \"id\": \"0ks45m1bsP2JsZpM5D2FFA\",\n            \"name\": \"Avenged Sevenfold\"\n        },\n        \"externalUrls\": {\n            \"spotify\": \"https://open.spotify.com/album/0ks45m1bsP2JsZpM5D2FFA\"\n        }\n    }\n}",
           "type": "json"
         }
       ]
@@ -80,7 +120,7 @@
         ]
       }
     },
-    "filename": "src/main/java/dk/kea/soundsup/PostEndpoint.java",
+    "filename": "src/main/java/dk/kea/soundsup/resources/PostResource.java",
     "groupTitle": "Posts"
   },
   {
@@ -149,7 +189,7 @@
         ]
       }
     },
-    "filename": "src/main/java/dk/kea/soundsup/PostEndpoint.java",
+    "filename": "src/main/java/dk/kea/soundsup/resources/PostResource.java",
     "groupTitle": "Posts"
   },
   {
@@ -167,7 +207,7 @@
             "group": "Success 200",
             "type": "Number",
             "optional": false,
-            "field": "post_id",
+            "field": "id",
             "description": "<p>Unique post identifier</p>"
           },
           {
@@ -221,7 +261,7 @@
         ]
       }
     },
-    "filename": "src/main/java/dk/kea/soundsup/PostEndpoint.java",
+    "filename": "src/main/java/dk/kea/soundsup/resources/PostResource.java",
     "groupTitle": "Posts"
   },
   {
@@ -239,7 +279,7 @@
             "group": "Success 200",
             "type": "Number",
             "optional": false,
-            "field": "post_id",
+            "field": "id",
             "description": "<p>Unique post identifier</p>"
           },
           {
@@ -292,7 +332,7 @@
         ]
       }
     },
-    "filename": "src/main/java/dk/kea/soundsup/PostEndpoint.java",
+    "filename": "src/main/java/dk/kea/soundsup/resources/PostResource.java",
     "groupTitle": "Posts"
   },
   {
@@ -368,8 +408,59 @@
         ]
       }
     },
-    "filename": "src/main/java/dk/kea/soundsup/PostEndpoint.java",
+    "filename": "src/main/java/dk/kea/soundsup/resources/PostResource.java",
     "groupTitle": "Posts"
+  },
+  {
+    "type": "get",
+    "url": "/spotify/token",
+    "title": "Get Spotify access token",
+    "name": "GetSpotifyToken",
+    "group": "Spotify",
+    "version": "1.0.0",
+    "description": "<p>This request returns a token needed during the client credentials flow to access resources from the Spotify Web API.</p>",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "idToken",
+            "description": "<p>token allowing you to make requests to the Spotify Web API endpoints that do not require user authorization. For example, Get a track endpoint.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "SuccessResponse",
+          "content": "HTTP/1.1 200 OK\n{\n     \"idToken\": \"BQB4eNFgjk2oxbYdNz0gMd58eMRw7k5wddbn5dA2oXt570uzVf3oK1ozrCYyB_kVkZynJxqoB-VHIdLbqkIz_w\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "400",
+            "description": "<p>Bad request</p>"
+          }
+        ],
+        "Error 5xx": [
+          {
+            "group": "Error 5xx",
+            "optional": false,
+            "field": "500",
+            "description": "<p>Server has encountered a problem</p>"
+          }
+        ]
+      }
+    },
+    "filename": "src/main/java/dk/kea/soundsup/resources/SpotifyResource.java",
+    "groupTitle": "Spotify"
   },
   {
     "type": "get",
@@ -408,7 +499,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "{\n     \"id\": 0,\n     \"name\": \"Cristiana Man\",\n     \"email\": \"cma@mail.com\"\n},\n{\n     \"id\": 1,\n     \"name\": \"Andrei Atanasiu\",\n     \"email\": \"aa@mail.dk\"\n}",
+          "content": "{\n\"id\": 0,\n\"name\": \"Cristiana Man\",\n\"email\": \"cma@mail.com\"\n},\n{\n\"id\": 1,\n\"name\": \"Andrei Atanasiu\",\n\"email\": \"aa@mail.dk\"\n}",
           "type": "json"
         }
       ]
@@ -417,12 +508,12 @@
       "examples": [
         {
           "title": "Error-Response:",
-          "content": "HTTP/1.1 400 Bad Request\n{\n     \"error\": \"User table not found\"\n}",
+          "content": "HTTP/1.1 400 Bad Request\n{\n\"error\": \"User table not found\"\n}",
           "type": "json"
         }
       ]
     },
-    "filename": "src/main/java/dk/kea/soundsup/UserEndpoint.java",
+    "filename": "src/main/java/dk/kea/soundsup/resources/UserResource.java",
     "groupTitle": "User"
   },
   {
@@ -474,7 +565,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "{\n     \"id\": 3,\n     \"name\": \"Bat Man\",\n     \"email\": \"batman@super.org\";\n}",
+          "content": "{\n\"id\": 3,\n\"name\": \"Bat Man\",\n\"email\": \"batman@super.org\";\n}",
           "type": "json"
         }
       ]
@@ -483,12 +574,12 @@
       "examples": [
         {
           "title": "Error-Response:",
-          "content": "HTTP/1.1 400 Bad Request\n{\n     \"error\": \"User not found\"\n}",
+          "content": "HTTP/1.1 400 Bad Request\n{\n\"error\": \"User not found\"\n}",
           "type": "json"
         }
       ]
     },
-    "filename": "src/main/java/dk/kea/soundsup/UserEndpoint.java",
+    "filename": "src/main/java/dk/kea/soundsup/resources/UserResource.java",
     "groupTitle": "User"
   }
 ]
