@@ -54,8 +54,7 @@ public class HelloResource {
     @Path("/country")
     @Produces(MediaType.APPLICATION_JSON)
     public GeoIP getCountry(@Context HttpServletRequest request) {
-        String ipAddress = request.getRemoteAddr();
-//        String ipAddress = "83.93.37.233";
+        String ipAddress = getClientIp(request);
 
         GeoIPService geoIPService = new GeoIPService();
         GeoIPServiceSoap geoIPServiceSoap = geoIPService.getGeoIPServiceSoap();
@@ -65,5 +64,20 @@ public class HelloResource {
         String countryCode = geoIP.getCountryCode();
 
         return geoIP;
+    }
+
+    private String getClientIp(HttpServletRequest request) {
+        String ipAddress = "";
+//        String ipAddress = "83.93.37.233";
+
+        if (request != null) {
+            ipAddress = request.getHeader("X-FORWARDED-FOR");
+            if (ipAddress == null || "".equals(ipAddress)) {
+                ipAddress = request.getRemoteAddr();
+            }
+        }
+
+        return ipAddress;
+
     }
 }
